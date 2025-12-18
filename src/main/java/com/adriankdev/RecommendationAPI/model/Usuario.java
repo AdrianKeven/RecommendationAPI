@@ -2,8 +2,8 @@ package com.adriankdev.RecommendationAPI.model;
 
 import jakarta.persistence.*;
 import lombok.*;
-
 import java.util.List;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Data
 @NoArgsConstructor
@@ -18,14 +18,17 @@ public class Usuario {
     private String nome;
 
     @Column(unique = true)
+    @Getter
     private String email;
 
     private String senha;
 
     @OneToMany(mappedBy = "usuario")
+    @JsonIgnore
     private List<Review> reviews;
 
     @OneToMany(mappedBy = "usuario")
+    @JsonIgnore
     private List<Favorito> favoritos;
 
 }

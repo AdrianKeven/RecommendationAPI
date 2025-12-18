@@ -1,8 +1,11 @@
 package com.adriankdev.RecommendationAPI.model;
 
 import jakarta.persistence.*;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import lombok.Data;
 
 @Entity
+@Data
 public class Review {
 
     @Id
@@ -14,10 +17,12 @@ public class Review {
 
     @ManyToOne
     @JoinColumn(name = "user_id")
+    @JsonIgnore
     private Usuario usuario;
 
     @ManyToOne
     @JoinColumn(name = "filme_id")
+    @JsonIgnore
     private Filme filme;
 
     public double getNota() {

@@ -3,6 +3,7 @@ package com.adriankdev.RecommendationAPI.model;
 import jakarta.persistence.*;
 import lombok.*;
 import java.util.List;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Data
 @NoArgsConstructor
@@ -21,6 +22,7 @@ public class Filme {
     private String genero;
 
     @OneToMany(mappedBy = "filme", cascade = CascadeType.ALL)
+    @JsonIgnore
     private List<Review> reviews;
 
     public double getNotaMedia() {

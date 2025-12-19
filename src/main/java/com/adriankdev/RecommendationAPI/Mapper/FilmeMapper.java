@@ -15,4 +15,14 @@ public class FilmeMapper {
         dto.setGenero(filme.getGenero());
         return dto;
     }
+
+    public static Filme toEntity(FilmeDTO dto) {
+        Filme filme = new Filme();
+        filme.setTitulo(dto.getTitulo());
+        filme.setGenero(dto.getGenero());
+        filme.setAnoLancamento(dto.getAnoLancamento());
+        return filme;
+    }
 }
+
+

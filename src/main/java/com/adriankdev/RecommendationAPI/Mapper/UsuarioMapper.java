@@ -12,4 +12,5 @@ public class UsuarioMapper {
         dto.setEmail(usuario.getEmail());
         return dto;
     }
+
 }

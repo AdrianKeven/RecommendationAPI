@@ -6,4 +6,5 @@ import lombok.Data;
 public class ReviewCreateDTO {
     private Integer nota;
     private String comentario;
+    private boolean onboarding;
 }

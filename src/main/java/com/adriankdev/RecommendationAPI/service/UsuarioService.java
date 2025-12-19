@@ -16,8 +16,8 @@ public class UsuarioService {
     public Usuario salvar(Usuario usuario) {
         Usuario existente = repository.findByEmail(usuario.getEmail());
 
-        if (existente != null) {
-            throw new RuntimeException("Email já cadastrado");
+        if (usuario.getEmail() == null || usuario.getEmail().isBlank()) {
+            throw new RuntimeException("Email inválido");
         }
 
         return repository.save(usuario);

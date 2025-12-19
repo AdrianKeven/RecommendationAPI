@@ -24,5 +24,6 @@ public class Review {
     @JoinColumn(name = "filme_id")
     @JsonIgnore
     private Filme filme;
+    private boolean onboarding;
 
 }

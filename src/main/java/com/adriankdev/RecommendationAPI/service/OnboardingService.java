@@ -8,11 +8,11 @@ import com.adriankdev.RecommendationAPI.model.Usuario;
 import com.adriankdev.RecommendationAPI.repository.FavoritoRepository;
 import com.adriankdev.RecommendationAPI.repository.FilmeRepository;
 import com.adriankdev.RecommendationAPI.repository.ReviewRepository;
+import jakarta.transaction.Transactional;
 import org.springframework.stereotype.Service;
 
-import java.util.Collections;
-import java.util.List;
-
+import java.util.*;
+import java.util.stream.Collectors;
 @Service
 public class OnboardingService {
 
@@ -31,12 +31,10 @@ public class OnboardingService {
     public List<Filme> listarFilmesParaAvaliacao(int quantidade) {
         List<Filme> filmes = filmeRepository.findAll();
         Collections.shuffle(filmes);
-
-        return filmes.stream()
-                .limit(quantidade)
-                .toList();
+        return filmes.stream().limit(quantidade).toList();
     }
 
+    @Transactional
     public void salvarAvaliacoes(Usuario usuario, List<OnboardingReviewDTO> dtos) {
 
         for (OnboardingReviewDTO dto : dtos) {
@@ -49,6 +47,7 @@ public class OnboardingService {
             review.setComentario(dto.getComentario());
             review.setUsuario(usuario);
             review.setFilme(filme);
+            review.setOnboarding(true); // IMPORTANTE
 
             reviewRepository.save(review);
 
@@ -59,6 +58,28 @@ public class OnboardingService {
                 favoritoRepository.save(fav);
             }
         }
+    }
+
+    /**
+     * Perfil de gosto baseado APENAS no onboarding
+     */
+    public Map<String, Integer> getPerfilGenero(Long usuarioId) {
+
+        List<Review> reviews =
+                reviewRepository.findByUsuarioIdAndOnboardingTrue(usuarioId);
+
+        Map<String, Integer> perfilGenero = new HashMap<>();
+
+        for (Review review : reviews) {
+
+            String genero = review.getFilme().getGenero();
+            int nota = review.getNota();
+
+            int peso = (nota <= 2) ? -2 : nota;
+            perfilGenero.merge(genero, peso, Integer::sum);
+        }
+
+        return perfilGenero;
     }
 }
 

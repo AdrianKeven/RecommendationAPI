@@ -24,6 +24,7 @@ public class FilmeService {
     }
 
     public Filme buscarPorId(Long id) {
-        return repository.findById(id).orElseThrow();
+        return repository.findById(id)
+                .orElseThrow( () -> new RuntimeException("Filme nao encontrado"));
     }
 }

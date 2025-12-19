@@ -9,4 +9,5 @@ public class ReviewDTO {
     private String comentario;
     private String nomeUsuario;
     private String tituloFilme;
+    private boolean onboarding;
 }

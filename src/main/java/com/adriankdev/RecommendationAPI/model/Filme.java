@@ -21,6 +21,9 @@ public class Filme {
     private Integer anoLancamento;
     private String genero;
 
+    @Transient
+    private double score;
+
     @OneToMany(mappedBy = "filme", cascade = CascadeType.ALL)
     @JsonIgnore
     private List<Review> reviews;

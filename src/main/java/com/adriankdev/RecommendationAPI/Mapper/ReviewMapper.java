@@ -14,6 +14,7 @@ public class ReviewMapper {
         dto.setId(review.getFilme().getId());
         dto.setNota(review.getNota());
         dto.setComentario(review.getComentario());
+        dto.setOnboarding(review.isOnboarding());
         return dto;
     }
 
@@ -23,6 +24,7 @@ public class ReviewMapper {
         review.setComentario(dto.getComentario());
         review.setUsuario(usuario);
         review.setFilme(filme);
+        review.setOnboarding(dto.isOnboarding());
         return review;
     }
 

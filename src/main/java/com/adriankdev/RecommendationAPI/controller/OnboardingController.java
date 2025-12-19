@@ -1,7 +1,9 @@
 package com.adriankdev.RecommendationAPI.controller;
 
+import com.adriankdev.RecommendationAPI.DTO.FilmeDTO;
+import com.adriankdev.RecommendationAPI.DTO.OnboardingReviewDTO;
+import com.adriankdev.RecommendationAPI.Mapper.FilmeMapper;
 import com.adriankdev.RecommendationAPI.model.Filme;
-import com.adriankdev.RecommendationAPI.model.Review;
 import com.adriankdev.RecommendationAPI.model.Usuario;
 import com.adriankdev.RecommendationAPI.service.OnboardingService;
 import com.adriankdev.RecommendationAPI.service.UsuarioService;
@@ -10,7 +12,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("/onborading")
+@RequestMapping("/onboarding")
 public class OnboardingController {
 
     private final OnboardingService onboardingService;
@@ -23,15 +25,18 @@ public class OnboardingController {
     }
 
     @GetMapping("/filmes")
-    public List<Filme> listarFilmes() {
-        return onboardingService.listarFilmesParaAvaliacao(10);
+    public List<FilmeDTO> listarFilmes(@RequestParam(defaultValue = "10") int limite){
+    List<Filme> filmeList= onboardingService.listarFilmesParaAvaliacao(limite);
+        return filmeList.stream()
+                .map(FilmeMapper::toDTO)
+                .toList();
     }
 
     @PostMapping("/avaliacoes")
     public void salvarAcaliacoes(@RequestParam Long usuarioId,
-                                 @RequestBody List<Review> reviews) {
+                                 @RequestBody List<OnboardingReviewDTO> dto) {
 
         Usuario usuario = usuarioService.buscarPorId(usuarioId);
-        onboardingService.salvarAvaliacoes(usuario,reviews);
+        onboardingService.salvarAvaliacoes(usuario,dto);
     }
 }

@@ -12,7 +12,7 @@ public class Review {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    private Double nota;
+    private Integer nota;
     private String comentario;
 
     @ManyToOne

@@ -3,10 +3,9 @@ package com.adriankdev.RecommendationAPI.DTO;
 import lombok.Data;
 
 @Data
-public class ReviewDTO {
-    private Long id;
+public class OnboardingReviewDTO {
+
+    private Long filmeId;
     private Integer nota;
     private String comentario;
-    private String nomeUsuario;
-    private String tituloFilme;
 }

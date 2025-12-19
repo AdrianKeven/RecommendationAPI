@@ -1,5 +1,6 @@
 package com.adriankdev.RecommendationAPI.service;
 
+import com.adriankdev.RecommendationAPI.DTO.OnboardingReviewDTO;
 import com.adriankdev.RecommendationAPI.model.Favorito;
 import com.adriankdev.RecommendationAPI.model.Filme;
 import com.adriankdev.RecommendationAPI.model.Review;
@@ -14,6 +15,7 @@ import java.util.List;
 
 @Service
 public class OnboardingService {
+
     private final FilmeRepository filmeRepository;
     private final ReviewRepository reviewRepository;
     private final FavoritoRepository favoritoRepository;
@@ -35,21 +37,28 @@ public class OnboardingService {
                 .toList();
     }
 
-    public void salvarAvaliacoes(Usuario usuario, List<Review> reviews) {
+    public void salvarAvaliacoes(Usuario usuario, List<OnboardingReviewDTO> dtos) {
 
-        for (Review review : reviews) {
+        for (OnboardingReviewDTO dto : dtos) {
 
+            Filme filme = filmeRepository.findById(dto.getFilmeId())
+                    .orElseThrow(() -> new RuntimeException("Filme não encontrado"));
+
+            Review review = new Review();
+            review.setNota(dto.getNota());
+            review.setComentario(dto.getComentario());
             review.setUsuario(usuario);
+            review.setFilme(filme);
+
             reviewRepository.save(review);
 
-            if (review.getNota() >= 4) {
-                Favorito favorito = new Favorito();
-                favorito.setUsuario(usuario);
-                favorito.setFilme(review.getFilme());
-                favoritoRepository.save(favorito);
-
+            if (dto.getNota() >= 4) {
+                Favorito fav = new Favorito();
+                fav.setUsuario(usuario);
+                fav.setFilme(filme);
+                favoritoRepository.save(fav);
             }
-
         }
     }
 }
+

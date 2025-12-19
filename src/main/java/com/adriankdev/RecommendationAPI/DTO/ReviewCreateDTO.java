@@ -4,6 +4,6 @@ import lombok.Data;
 
 @Data
 public class ReviewCreateDTO {
-    private Double nota;
+    private Integer nota;
     private String comentario;
 }

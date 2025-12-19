@@ -1,5 +1,8 @@
 package com.adriankdev.RecommendationAPI.controller;
 
+import com.adriankdev.RecommendationAPI.DTO.ReviewCreateDTO;
+import com.adriankdev.RecommendationAPI.DTO.ReviewDTO;
+import com.adriankdev.RecommendationAPI.Mapper.ReviewMapper;
 import com.adriankdev.RecommendationAPI.model.Review;
 import com.adriankdev.RecommendationAPI.model.Filme;
 import com.adriankdev.RecommendationAPI.model.Usuario;
@@ -24,17 +27,18 @@ public class ReviewController {
         this.filmeService = filmeService;
     }
 
-    public Review criar(@RequestParam Long usuarioId,
-                        @RequestParam Long filmeId,
-                        @RequestBody Review review) {
+    @PostMapping
+    public ReviewDTO criar(@RequestParam Long usuarioId,
+                           @RequestParam Long filmeId,
+                           @RequestBody ReviewCreateDTO dto) {
 
         Usuario usuario = usuarioService.buscarPorId(usuarioId);
         Filme filme = filmeService.buscarPorId(filmeId);
 
-        review.setUsuario(usuario);
-        review.setFilme(filme);
+        Review review = ReviewMapper.toEntity(dto, usuario, filme);
+        Review salvo = reviewService.salvar(review);
 
-        return reviewService.salvar(review);
+        return ReviewMapper.toDTO(salvo);
     }
 
 }

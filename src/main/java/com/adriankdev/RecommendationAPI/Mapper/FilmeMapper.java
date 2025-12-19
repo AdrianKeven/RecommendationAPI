@@ -1,28 +1,32 @@
 package com.adriankdev.RecommendationAPI.Mapper;
 
-
+import com.adriankdev.RecommendationAPI.DTO.FilmeCreateDTO;
 import com.adriankdev.RecommendationAPI.DTO.FilmeDTO;
 import com.adriankdev.RecommendationAPI.model.Filme;
 
 public class FilmeMapper {
 
-    public static FilmeDTO toDTO(Filme filme){
+    // CREATE
+    public static Filme toEntity(FilmeCreateDTO dto) {
+        Filme filme = new Filme();
+        filme.setTitulo(dto.getTitulo());
+        filme.setDescricao(dto.getDescricao());
+        filme.setDiretor(dto.getDiretor());
+        filme.setAnoLancamento(dto.getAnoLancamento());
+        filme.setGenero(dto.getGenero());
+        return filme;
+    }
+
+    // READ
+    public static FilmeDTO toDTO(Filme filme) {
         FilmeDTO dto = new FilmeDTO();
         dto.setId(filme.getId());
         dto.setTitulo(filme.getTitulo());
-        dto.setNotaMedia(filme.getNotaMedia());
+        dto.setDescricao(filme.getDescricao());
+        dto.setDiretor(filme.getDiretor());
         dto.setAnoLancamento(filme.getAnoLancamento());
         dto.setGenero(filme.getGenero());
+        dto.setNotaMedia(filme.getNotaMedia());
         return dto;
     }
-
-    public static Filme toEntity(FilmeDTO dto) {
-        Filme filme = new Filme();
-        filme.setTitulo(dto.getTitulo());
-        filme.setGenero(dto.getGenero());
-        filme.setAnoLancamento(dto.getAnoLancamento());
-        return filme;
-    }
 }
-
-

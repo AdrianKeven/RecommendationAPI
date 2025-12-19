@@ -1,5 +1,7 @@
 package com.adriankdev.RecommendationAPI.controller;
 
+import com.adriankdev.RecommendationAPI.DTO.FilmeDTO;
+import com.adriankdev.RecommendationAPI.Mapper.FilmeMapper;
 import com.adriankdev.RecommendationAPI.model.Filme;
 import com.adriankdev.RecommendationAPI.service.RecomendacaoService;
 import org.springframework.web.bind.annotation.*;
@@ -17,7 +19,10 @@ public class RecomendacaoController {
     }
 
     @GetMapping("/{usuarioId}")
-    public List<Filme> recomendar(@PathVariable Long usuarioId) {
-        return service.recomendarPorUsuario(usuarioId);
+    public List<FilmeDTO> recomendar(@PathVariable Long usuarioId) {
+        return service.recomendarPorUsuario(usuarioId)
+                .stream()
+                .map(FilmeMapper::toDTO)
+                .toList();
     }
 }

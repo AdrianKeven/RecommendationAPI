@@ -1,5 +1,8 @@
 package com.adriankdev.RecommendationAPI.controller;
 
+import com.adriankdev.RecommendationAPI.DTO.UsuarioCreateDTO;
+import com.adriankdev.RecommendationAPI.DTO.UsuarioDTO;
+import com.adriankdev.RecommendationAPI.Mapper.UsuarioMapper;
 import com.adriankdev.RecommendationAPI.model.Usuario;
 import com.adriankdev.RecommendationAPI.service.UsuarioService;
 import org.springframework.web.bind.annotation.*;
@@ -15,17 +18,25 @@ public class UsuarioController {
     }
 
     @PostMapping
-    public Usuario criar(@RequestBody Usuario usuario) {
-        return service.salvar(usuario);
+    public UsuarioDTO criar(@RequestBody UsuarioCreateDTO dto) {
+
+        Usuario usuario = UsuarioMapper.toEntity(dto);
+        Usuario salvo = service.salvar(usuario);
+
+        return UsuarioMapper.toDTO(salvo);
     }
 
     @GetMapping("/{id}")
-    public Usuario buscarPorId(@PathVariable Long id){
-        return service.buscarPorId(id);
+    public UsuarioDTO buscarPorId(@PathVariable Long id){
+
+        Usuario usuario = service.buscarPorId(id);
+        return UsuarioMapper.toDTO(usuario);
     }
 
     @GetMapping("/buscar")
-    public Usuario buscarPorEmail(@RequestParam String email){
-        return service.buscarPorEmail(email);
+    public UsuarioDTO buscarPorEmail(@RequestParam String email){
+
+        Usuario usuario = service.buscarPorEmail(email);
+        return UsuarioMapper.toDTO(usuario);
     }
 }

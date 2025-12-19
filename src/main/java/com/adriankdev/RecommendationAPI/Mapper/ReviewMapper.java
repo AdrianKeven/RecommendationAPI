@@ -1,16 +1,30 @@
 package com.adriankdev.RecommendationAPI.Mapper;
 
 
+import com.adriankdev.RecommendationAPI.DTO.ReviewCreateDTO;
 import com.adriankdev.RecommendationAPI.DTO.ReviewDTO;
+import com.adriankdev.RecommendationAPI.model.Filme;
 import com.adriankdev.RecommendationAPI.model.Review;
+import com.adriankdev.RecommendationAPI.model.Usuario;
 
 public class ReviewMapper {
 
-    public static ReviewDTO toDTO(Review review){
+    public static ReviewDTO toDTO(Review review) {
         ReviewDTO dto = new ReviewDTO();
-        dto.setFilmeId(review.getFilme().getId());
+        dto.setId(review.getFilme().getId());
         dto.setNota(review.getNota());
         dto.setComentario(review.getComentario());
         return dto;
     }
+
+    public static Review toEntity(ReviewCreateDTO dto, Usuario usuario, Filme filme) {
+        Review review = new Review();
+        review.setNota(dto.getNota());
+        review.setComentario(dto.getComentario());
+        review.setUsuario(usuario);
+        review.setFilme(filme);
+        return review;
+    }
+
 }
+

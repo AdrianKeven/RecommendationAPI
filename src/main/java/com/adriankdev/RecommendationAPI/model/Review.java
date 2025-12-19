@@ -12,7 +12,7 @@ public class Review {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    private Integer nota;
+    private Double nota;
     private String comentario;
 
     @ManyToOne
@@ -25,7 +25,4 @@ public class Review {
     @JsonIgnore
     private Filme filme;
 
-    public double getNota() {
-        return this.nota;
-    }
 }

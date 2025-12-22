@@ -2,7 +2,6 @@ package com.adriankdev.RecommendationAPI.controller;
 
 import com.adriankdev.RecommendationAPI.DTO.FilmeDTO;
 import com.adriankdev.RecommendationAPI.Mapper.FilmeMapper;
-import com.adriankdev.RecommendationAPI.model.Filme;
 import com.adriankdev.RecommendationAPI.service.RecomendacaoService;
 import org.springframework.web.bind.annotation.*;
 

@@ -55,7 +55,7 @@ async function enviarAvaliacoes() {
     });
 
     alert("Onboarding concluído!");
-    window.location.href = "/recomendacoes.html";
+    window.location.href = "/onboarding.js";
 }
 
 // carregar automaticamente

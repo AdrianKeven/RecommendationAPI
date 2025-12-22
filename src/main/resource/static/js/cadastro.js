@@ -44,6 +44,7 @@ async function criarUsuario(nome, email, senha) {
 function salvarUsuario(usuario) {
     localStorage.setItem("usuarioId", usuario.id);
     localStorage.setItem("usuarioNome", usuario.nome);
+    localStorage.setItem("usuarioEmail", usuario.email);
 
     window.location.href = "/onboarding.html";
 }

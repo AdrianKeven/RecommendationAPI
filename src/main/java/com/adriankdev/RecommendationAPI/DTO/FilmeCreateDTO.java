@@ -10,5 +10,6 @@ public class FilmeCreateDTO {
     private String diretor;
     private Integer anoLancamento;
     private String genero;
+    private String imagemUrl;
 }
 

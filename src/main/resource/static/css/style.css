@@ -8,8 +8,9 @@
 }
 
 body {
-    font-family: Arial, sans-serif;
-    background: #f5f5f5;
+    font-family: "Inter", Arial, sans-serif;
+    background: #f3f4f6;
+    color: #111827;
 }
 
 /* =========================
@@ -17,19 +18,19 @@ body {
 ========================= */
 .menu {
     background: #111827;
-    padding: 15px;
+    padding: 16px 32px;
     display: flex;
-    gap: 20px;
+    gap: 24px;
 }
 
 .menu a {
-    color: white;
+    color: #e5e7eb;
     text-decoration: none;
-    font-weight: bold;
+    font-weight: 600;
 }
 
 .menu a:hover {
-    text-decoration: underline;
+    color: #fff;
 }
 
 /* =========================
@@ -38,8 +39,8 @@ body {
 header,
 .header {
     background: #111827;
-    color: white;
-    padding: 20px;
+    color: #fff;
+    padding: 32px;
     text-align: center;
 }
 
@@ -47,75 +48,47 @@ header,
    LAYOUT
 ========================= */
 main {
-    max-width: 1000px;
-    margin: 20px auto;
-    padding: 10px;
-}
-
-.center {
-    height: 100vh;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-}
-
-/* =========================
-   CARD GENÉRICO (LOGIN ETC)
-========================= */
-.card {
-    background: white;
-    padding: 30px;
-    border-radius: 10px;
-    width: 400px;
-    text-align: center;
-    box-shadow: 0 4px 10px rgba(0,0,0,0.1);
-}
-
-.card input {
-    width: 100%;
-    padding: 10px;
-    margin: 15px 0;
+    max-width: 1200px;
+    margin: 24px auto;
+    padding: 16px;
 }
 
 /* =========================
    BOTÕES
 ========================= */
 button {
-    padding: 10px;
+    padding: 10px 14px;
     border: none;
+    border-radius: 8px;
     background: #4f46e5;
-    color: white;
-    border-radius: 6px;
+    color: #fff;
+    font-weight: 600;
     cursor: pointer;
+    transition: background 0.2s, transform 0.1s;
 }
 
 button:hover {
     background: #4338ca;
+    transform: translateY(-1px);
 }
 
 .btn-enviar {
     display: block;
-    margin: 30px auto;
-    padding: 12px 30px;
+    margin: 32px auto;
+    padding: 14px 40px;
+    font-size: 16px;
     background: #2563eb;
 }
 
 /* =========================
-   ERROS
-========================= */
-.erro {
-    color: red;
-    margin-top: 10px;
-}
-
-/* =========================
-   CARROSSEL (ONBOARDING)
+   CARROSSEL
 ========================= */
 .carrossel {
     display: flex;
-    gap: 20px;
+    gap: 24px;
     overflow-x: auto;
-    padding: 20px;
+    padding: 24px 8px;
+    scroll-snap-type: x mandatory;
 }
 
 .carrossel::-webkit-scrollbar {
@@ -123,7 +96,7 @@ button:hover {
 }
 
 .carrossel::-webkit-scrollbar-thumb {
-    background: #ccc;
+    background: #c7c7c7;
     border-radius: 4px;
 }
 
@@ -131,42 +104,122 @@ button:hover {
    CARD FILME
 ========================= */
 .card-filme {
-    min-width: 220px;
-    background: white;
-    padding: 15px;
-    border-radius: 10px;
-    box-shadow: 0 2px 6px rgba(0,0,0,.15);
-    text-align: center;
+    flex: 0 0 320px;   /* largura REAL do card */
+    min-height: 460px;
+
+    background: #fff;
+    border-radius: 16px;
+    padding: 24px;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+
+    box-shadow: 0 10px 20px rgba(0,0,0,0.08);
+    scroll-snap-align: start;
+    transition: transform 0.2s, box-shadow 0.2s;
 }
 
-.card-filme input {
-    width: 60px;
-    margin-top: 10px;
+.card-filme:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 16px 30px rgba(0,0,0,0.12);
+}
+
+.img-filme {
+    width: 100%;
+    height: 180px;
+    object-fit: cover;
+    border-radius: 8px;
+    margin-bottom: 10px;
+}
+
+
+/* =========================
+   TEXTO DO CARD
+========================= */
+.card-filme h3 {
+    font-size: 18px;
+    margin-bottom: 6px;
+}
+
+.card-filme .genero {
+    font-size: 14px;
+    color: #6b7280;
+    margin-bottom: 16px;
 }
 
 /* =========================
-   NOTAS (ESTRELAS / BOTÕES)
+   INPUTS
+========================= */
+.card-filme input[type="number"],
+.card-filme textarea {
+    width: 100%;
+    padding: 10px;
+    border-radius: 8px;
+    border: 1px solid #d1d5db;
+    font-family: inherit;
+    font-size: 14px;
+}
+
+.card-filme input[type="number"] {
+    margin-bottom: 12px;
+}
+
+.card-filme textarea {
+    height: 140px;
+    resize: none;
+    margin-bottom: 16px;
+}
+
+/* =========================
+   NOTAS
 ========================= */
 .notas {
     display: flex;
     justify-content: center;
-    gap: 5px;
-    margin-top: 10px;
+    gap: 8px;
+    margin-bottom: 16px;
 }
 
 .notas button {
-    width: 35px;
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    background: #e5e7eb;
+    color: #111827;
 }
 
 .notas button.ativo {
     background: #16a34a;
+    color: #fff;
 }
 
 /* =========================
-   GRID DE FILMES (LISTAGEM)
+   GRID (OUTRAS TELAS)
 ========================= */
 .cards {
-    display: flex;
-    gap: 20px;
-    flex-wrap: wrap;
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 24px;
 }
+
+/* =========================
+   ERROS
+========================= */
+.erro {
+    color: #dc2626;
+    margin-top: 12px;
+    font-weight: 500;
+}
+
+.genero-filme {
+    display: inline-block;
+    background-color: #6c5ce7; /* roxo */
+    color: white;
+    padding: 4px 10px;
+    border-radius: 12px;
+    font-size: 0.85rem;
+    font-weight: 600;
+    margin-bottom: 8px;
+}
+

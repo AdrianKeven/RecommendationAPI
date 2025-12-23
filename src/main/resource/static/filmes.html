@@ -14,16 +14,20 @@
 
 <main>
     <h1>Filmes</h1>
+    <div id="listaCriarFilmes" class="cards"></div>
 
-    <div class="card">
-        <input id="titulo" placeholder="Título do filme">
-        <input id="descricao" placeholder="descriçao do filme">
-        <input id="diretor" placeholder="diretor do filme">
-        <input type="number" id="anoLancamento" placeholder="Ano de lançamento">
-        <input id="genero" placeholder="gênero do filme">
+    <form>
+        <input id="titulo" placeholder="Título">
+        <textarea id="descricao" placeholder="Descrição"></textarea>
+        <input id="diretor" placeholder="Diretor">
+        <input id="anoLancamento" type="number" placeholder="Ano">
+        <input id="genero" placeholder="Gênero">
 
-        <button onclick="criarFilme()">Cadastrar</button>
-    </div>
+        <label>Imagem do Filme</label>
+        <input type="file" id="imagem" accept="image/*">
+
+        <button type="button" onclick="criarFilme()">Salvar</button>
+    </form>
 
     <section class="cards" id="listaFilmes"></section>
 </main>

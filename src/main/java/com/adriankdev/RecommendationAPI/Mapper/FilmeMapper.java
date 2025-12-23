@@ -14,6 +14,7 @@ public class FilmeMapper {
         filme.setDiretor(dto.getDiretor());
         filme.setAnoLancamento(dto.getAnoLancamento());
         filme.setGenero(dto.getGenero());
+        filme.setImagemUrl(dto.getImagemUrl());
         return filme;
     }
 
@@ -27,6 +28,7 @@ public class FilmeMapper {
         dto.setAnoLancamento(filme.getAnoLancamento());
         dto.setGenero(filme.getGenero());
         dto.setNotaMedia(filme.getNotaMedia());
+        dto.setImagemUrl(filme.getImagemUrl());
         return dto;
     }
 }

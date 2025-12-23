@@ -1,7 +1,7 @@
 // ===============================
 // LISTAR FILMES
 // ===============================
-async function carregarFilmes() {
+async function carregarFilmesPaginaFilmes() {
     try {
         const res = await fetch("/filmes");
 
@@ -15,9 +15,17 @@ async function carregarFilmes() {
 
         filmes.forEach(filme => {
             const div = document.createElement("div");
+            const baseUrl = window.location.origin;
             div.className = "card-filme";
 
             div.innerHTML = `
+                <img 
+                  src="${filme.imagemUrl ?? '/assets/filmes/sem-imagem.jpg'}"
+                  alt="${filme.titulo}"
+                  class="img-filme"
+                  onerror="this.onerror=null; this.src='/assets/filmes/sem-imagem.jpg';"
+                />
+
                 <h3>${filme.titulo}</h3>
                 <p>${filme.genero ?? ""}</p>
                 <button onclick="avaliar(${filme.id})">
@@ -42,54 +50,36 @@ async function criarFilme() {
     const descricao = document.getElementById("descricao").value.trim();
     const diretor = document.getElementById("diretor").value.trim();
     const genero = document.getElementById("genero").value.trim();
+    const anoLancamento = document.getElementById("anoLancamento").value;
+    const imagem = document.getElementById("imagem").files[0];
 
-    const valorAno = document.getElementById("anoLancamento").value;
-    const anoLancamento = Number(valorAno);
-
-    // validações básicas
     if (!titulo || !diretor || !genero) {
         alert("Preencha os campos obrigatórios");
         return;
     }
 
-    if (isNaN(anoLancamento)) {
-        alert("Ano de lançamento inválido");
+    const formData = new FormData();
+    formData.append("titulo", titulo);
+    formData.append("descricao", descricao);
+    formData.append("diretor", diretor);
+    formData.append("anoLancamento", anoLancamento);
+    formData.append("genero", genero);
+
+    if (imagem) {
+        formData.append("imagem", imagem);
+    }
+
+    const res = await fetch("/filmes", {
+        method: "POST",
+        body: formData
+    });
+
+    if (!res.ok) {
+        alert("Erro ao criar filme");
         return;
     }
 
-    try {
-        const res = await fetch("/filmes", {
-            method: "POST",
-            headers: {
-                "Content-Type": "application/json"
-            },
-            body: JSON.stringify({
-                titulo,
-                descricao,
-                diretor,
-                anoLancamento,
-                genero
-            })
-        });
-
-        if (!res.ok) {
-            throw new Error("Erro ao criar filme");
-        }
-
-        // limpa formulário
-        document.getElementById("titulo").value = "";
-        document.getElementById("descricao").value = "";
-        document.getElementById("diretor").value = "";
-        document.getElementById("anoLancamento").value = "";
-        document.getElementById("genero").value = "";
-
-        // recarrega lista
-        carregarFilmes();
-
-    } catch (error) {
-        console.error(error);
-        alert("Erro ao salvar filme");
-    }
+    carregarFilmesPaginaFilmes();
 }
 
 // ===============================
@@ -104,5 +94,5 @@ function avaliar(filmeId) {
 // INIT
 // ===============================
 document.addEventListener("DOMContentLoaded", () => {
-    carregarFilmes();
+    carregarFilmesPaginaFilmes();
 });

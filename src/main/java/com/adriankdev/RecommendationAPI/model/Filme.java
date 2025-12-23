@@ -28,6 +28,9 @@ public class Filme {
     @JsonIgnore
     private List<Review> reviews;
 
+    @Column(length = 500)
+    private String imagemUrl;
+
     public double getNotaMedia() {
         if (reviews == null || reviews.isEmpty()) return 0.0;
         return reviews.stream()

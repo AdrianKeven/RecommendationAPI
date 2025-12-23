@@ -17,27 +17,30 @@ async function carregarFilmes() {
             <h3>${filme.titulo}</h3>
             <p>${filme.genero ?? ""}</p>
 
-            <label>Nota (1 a 5)</label><br>
+            <label>Nota (1 a 5)</label>
+            <br>
             <input 
               type="number" 
               min="1" 
               max="5"
               id="nota-${filme.id}"
             >
+            <br>
             
-            <label>Comentário</label><br>
-            <textarea 
-              id="comentario-${filme.id}" 
-              rows="5" 
-              cols="5"
-              placeholder="Escreva seu comentário">
-            </textarea>
-            
+            <label>Comentário</label>
+            <br>
+            <textarea
+             id="comentario-${filme.id}"
+             rows="10"
+             cols="30"
+            placeholder="Escreva seu comentário"></textarea>
+            <br>
             <input 
               type="button" 
               value="Avaliar"
               onclick="registrarAvaliacao(${filme.id})"
             >
+            <br>
         `;
 
         lista.appendChild(card);

@@ -2,6 +2,11 @@ const usuarioId = localStorage.getItem("usuarioId");
 
 async function carregar() {
     const res = await fetch(`/recomendacoes/${usuarioId}`);
+
+    if (!res.ok) {
+        throw new Error("Erro ao buscar recomendações");
+    }
+
     const filmes = await res.json();
 
     const lista = document.getElementById("lista");

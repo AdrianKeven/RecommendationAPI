@@ -18,4 +18,6 @@ public interface FavoritoRepository extends JpaRepository<Favorito,Long>{
         GROUP BY fav.filme.id
     """)
     List<Object[]> countFavoritosPorFilme();
+
+    void deleteByUsuarioIdAndFilmeId(Long usuarioId, Long filmeId);
 }

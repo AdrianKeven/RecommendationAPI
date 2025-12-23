@@ -22,7 +22,21 @@ async function carregarFilmes() {
               type="number" 
               min="1" 
               max="5"
-              onchange="registrarAvaliacao(${filme.id}, this.value)"
+              id="nota-${filme.id}"
+            >
+            
+            <label>Comentário</label><br>
+            <textarea 
+              id="comentario-${filme.id}" 
+              rows="5" 
+              cols="5"
+              placeholder="Escreva seu comentário">
+            </textarea>
+            
+            <input 
+              type="button" 
+              value="Avaliar"
+              onclick="registrarAvaliacao(${filme.id})"
             >
         `;
 
@@ -30,15 +44,29 @@ async function carregarFilmes() {
     });
 }
 
-// 2️⃣ Registrar nota no array
-function registrarAvaliacao(filmeId, nota) {
+// 2️⃣ Registrar avaliação
+function registrarAvaliacao(filmeId) {
+    const notaInput = document.getElementById(`nota-${filmeId}`);
+    const comentarioInput = document.getElementById(`comentario-${filmeId}`);
+
+    const nota = Number(notaInput.value);
+    const comentario = comentarioInput.value;
+
+    if (!nota || nota < 1 || nota > 5) {
+        alert("Informe uma nota válida (1 a 5)");
+        return;
+    }
+
     // remove se já existir
     avaliacoes = avaliacoes.filter(a => a.filmeId !== filmeId);
 
     avaliacoes.push({
-        filmeId: filmeId,
-        nota: Number(nota)
+        filmeId,
+        nota,
+        comentario
     });
+
+    alert("Avaliação registrada!");
 }
 
 // 3️⃣ Enviar tudo para o backend
@@ -55,8 +83,8 @@ async function enviarAvaliacoes() {
     });
 
     alert("Onboarding concluído!");
-    window.location.href = "/onboarding.js";
+    window.location.href = "/recomendacao.html";
 }
 
-// carregar automaticamente
-carregarFilmes();
+    // 4️⃣ Carregar automaticamente
+    carregarFilmes();
